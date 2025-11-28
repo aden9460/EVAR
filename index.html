@@ -1,135 +1,941 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <title>Zefang Wang</title>
-
-    <meta name="author" content="Zefang Wang">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EVAR: Edge Visual Autoregressive Models via Principled Pruning - Efficient model compression for edge deployment">
+    <meta name="keywords" content="EVAR, Visual Autoregressive, Model Compression, Edge AI, Pruning, Deep Learning">
+    <title>EVAR: Edge Visual Autoregressive Models via Principled Pruning</title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            background-color: #fff;
+        }
 
-  </head>
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px 0;
+            border-bottom: 2px solid #eee;
+        }
 
-  <body>
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-      <tr style="padding:0px">
-        <td style="padding:0px">
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr style="padding:0px">
-              <td style="padding:2.5%;width:63%;vertical-align:middle">
-                <p class="name" style="text-align: center;">
-                  Zefang Wang
-                </p>
-                <p>
-                I'm a researcher focused on efficient AI and edge deployment. My work centers on compressing large-scale generative models for resource-constrained devices, particularly in computer vision and visual generation.
-                </p>
-                <p>
-                I'm passionate about making state-of-the-art AI models practical for mobile and edge devices, bridging the gap between cutting-edge research and real-world deployment.
-                </p>
-                <p style="text-align:center">
-                  <a href="mailto:your-email@example.com">Email</a> &nbsp;/&nbsp;
-                  <a href="https://scholar.google.com/">Google Scholar</a> &nbsp;/&nbsp;
-                  <a href="https://github.com/aden9460">Github</a> &nbsp;/&nbsp;
-                  <a href="https://aden9460.github.io/Zefang-Wang/">Academic Site</a>
-                </p>
-              </td>
-              <td style="padding:2.5%;width:37%;max-width:37%">
-                <a href="images/ZefangWang.jpg"><img style="width:100%;max-width:100%;object-fit: cover; border-radius: 50%;" alt="profile photo" src="images/ZefangWang.jpg" class="hoverZoomLink"></a>
-              </td>
-            </tr>
-          </tbody></table>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-              <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Research</h2>
-                <p>
-                  I'm interested in efficient deep learning, model compression, and edge AI deployment. My research focuses on making large-scale generative models practical for mobile and IoT devices through principled pruning, quantization, and knowledge distillation. Representative work is <span class="highlight">highlighted</span>.
-                </p>
-              </td>
-            </tr>
-          </tbody></table>
-          <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        .title {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            line-height: 1.3;
+        }
 
-    <!-- EVAR Project -->
-    <tr bgcolor="#ffffd0">
-      <td style="padding:16px;width:25%;vertical-align:middle">
-        <img src='images/nexf_before.jpg' width="160" style="border-radius: 8px;">
-      </td>
-      <td style="padding:8px;width:75%;vertical-align:middle">
-        <a href="https://github.com/aden9460/EVAR">
-          <span class="papertitle">EVAR: Edge Visual Autoregressive Models via Principled Pruning</span>
-        </a>
-        <br>
-        <strong>Zefang Wang</strong> (Anonymous CVPR submission)
-        <br>
-        <em>CVPR</em>, 2026 (Under Review)
-        <br>
-        <a href="https://github.com/aden9460/EVAR">code</a>
-        /
-        <a href="data/cvpr2023_llm_workshop_annotated.pdf">paper</a>
-        <p></p>
+        .conference {
+            font-size: 1.3em;
+            color: #d32f2f;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .authors {
+            font-size: 1.1em;
+            margin: 20px 0;
+            color: #555;
+        }
+
+        .links {
+            margin: 30px 0;
+        }
+
+        .links a {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 5px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .links a:hover {
+            background-color: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+        }
+
+        .links a.github {
+            background-color: #333;
+        }
+
+        .links a.github:hover {
+            background-color: #000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            margin: 50px 0;
+        }
+
+        .white-section-wrapper {
+            background-color: #fff;
+            padding: 60px 80px;
+        }
+
+        .white-section-wrapper:first-of-type {
+            padding-top: 40px;
+        }
+
+        .white-section-wrapper:last-of-type {
+            padding-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            color: #1a1a1a;
+            border-bottom: 3px solid #2196F3;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .section h3 {
+            font-size: 1.3em;
+            color: #1a1a1a;
+            margin: 30px 0 15px 0;
+        }
+
+        .teaser {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .teaser img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: none;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #fffbeb 100%);
+            border-left: 4px solid #ffc107;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1000px) {
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .result-number {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #2196F3;
+            margin: 8px 0;
+        }
+
+        .result-label {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .contributions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contributions li {
+            padding: 20px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .contributions li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .contributions li strong {
+            color: #2196F3;
+        }
+
+        .method-figure {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .method-figure img {
+            max-width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .bibtex {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.9em;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 0.5px;
+        }
+
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            margin: 50px 0;
+            padding: 0;
+            overflow: visible;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 800px;
+        }
+
+        .carousel-slide {
+            display: none;
+            animation: fadeIn 0.5s;
+            width: 100%;
+            height: 800px;
+            overflow-y: auto;
+        }
+
+        .carousel-slide::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .carousel-slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .carousel-slide::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .carousel-slide::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-slide .section {
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        .carousel-slide .section h2 {
+            margin-top: 0;
+            font-size: 1.6em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(33, 150, 243, 0.9);
+            color: white;
+            border: none;
+            padding: 16px;
+            cursor: pointer;
+            font-size: 24px;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(33, 150, 243, 1);
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 6px 16px rgba(33, 150, 243, 0.6);
+        }
+
+        .carousel-btn.prev {
+            left: -70px;
+        }
+
+        .carousel-btn.next {
+            right: -70px;
+        }
+
+        .carousel-dots {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+
+        .dot {
+            height: 14px;
+            width: 14px;
+            margin: 0 8px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            background-color: #717171;
+            transform: scale(1.2);
+        }
+
+        .dot.active {
+            background-color: #2196F3;
+            width: 40px;
+            border-radius: 7px;
+        }
+
+        @media (max-width: 1000px) {
+            .carousel-wrapper {
+                height: 900px;
+            }
+
+            .carousel-slide {
+                height: 900px;
+            }
+
+            .carousel-slide .section {
+                padding: 15px 0;
+            }
+
+            .carousel-btn.prev {
+                left: -60px;
+            }
+
+            .carousel-btn.next {
+                right: -60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container {
+                padding: 0;
+            }
+
+            .carousel-wrapper {
+                height: 1050px;
+            }
+
+            .carousel-slide {
+                height: 1050px;
+            }
+
+            .carousel-slide .section {
+                padding: 15px 0;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                padding: 12px;
+            }
+
+            .carousel-btn.prev {
+                left: 10px;
+            }
+
+            .carousel-btn.next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .carousel-wrapper {
+                height: 1250px;
+            }
+
+            .carousel-slide {
+                height: 1250px;
+            }
+
+            .carousel-slide .section {
+                padding: 15px 0;
+            }
+
+            .carousel-btn.prev {
+                left: 5px;
+            }
+
+            .carousel-btn.next {
+                right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="white-section-wrapper">
+    <div class="header">
+        <h1 class="title">EVAR: Edge Visual Autoregressive Models<br>via Principled Pruning</h1>
+        <p class="authors" style="font-size: 1.1em; margin: 20px 0; line-height: 1.8;">
+            <a href="https://aden9460.github.io/Zefang-Wang/" style="text-decoration: none; color: #2196F3;">Zefang Wang</a><sup>1,2</sup>,
+            Yanyu Li<sup>3</sup>,
+            Mingluo Su<sup>1</sup>,
+            Simin Xu<sup>1</sup>,
+            Guanzhong Tian<sup>2</sup>,
+            Huan Wang<sup>1</sup>
+        </p>
+        <p style="font-size: 0.95em; color: #666; margin: 10px 0;">
+            <sup>1</sup>Westlake University &nbsp;&nbsp;&nbsp; <sup>2</sup>Zhejiang University &nbsp;&nbsp;&nbsp; <sup>3</sup>Snap Inc.
+        </p>
+
+        <!-- Institution Logos -->
+        <div style="margin: 30px 0 20px 0;">
+            <!-- First Row: Westlake, ZJU, Snap -->
+            <div style="display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 25px; flex-wrap: wrap;">
+                <img src="../pic/westlake.png" alt="Westlake University" style="height: 98px; width: auto;">
+                <img src="../pic/zju-logo.svg" alt="Zhejiang University" style="height: 98px; width: auto;">
+                <img src="../pic/snap.png" alt="Snap Inc." style="height: 98px; width: auto;">
+            </div>
+            <!-- Second Row: EncodeLab (larger) -->
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <img src="../pic/EncodeLab.svg" alt="EncodeLab" style="height: 70px; width: auto;">
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="data/EVAR_CVPR2026.pdf" target="_blank">📄 Paper</a>
+            <a href="https://github.com/aden9460/EVAR" class="github" target="_blank">💻 Code</a>
+        </div>
+    </div>
+
+    <!-- Abstract -->
+    <div class="section">
+        <h2>Abstract</h2>
         <p>
-        An efficient structured-pruning framework tailored to next-scale Visual Autoregressive (VAR) models for edge deployment. EVAR combines Optimal Brain Surgeon-guided Hessian-aware sensitivity estimation with Progressive Scale-Aware Distillation (PSAD), achieving 1.8× speedup on iPad Pro (M4) with minimal quality degradation (FID: 3.55→3.91).
+            Recent advances in generative modeling have catalyzed demand for on-device single-image synthesis. However, the stringent compute and memory budgets of resource-constrained edge hardware hinder the deployment of large-scale models. Next-scale visual autoregressive (VAR) models—which predict finer-scale content conditioned on coarser resolutions—offer strong fidelity, generalization, and improved inference efficiency, yet remain costly to run on such devices.
         </p>
-        <p style="color:#999; font-size:0.9em;">
-        <strong>Key Achievements:</strong><br>
-        • Reduced latency from 494ms to 277ms on iPad Pro M4 (1.8× speedup)<br>
-        • Compressed model from 310M to 230M parameters (26% reduction)<br>
-        • Maintained competitive generative quality (FID increase < 10%)<br>
-        • First principled pruning framework for next-scale VAR models
-        </p>
-      </td>
-    </tr>
-
-    <!-- Placeholder for future projects -->
-    <tr>
-      <td style="padding:16px;width:25%;vertical-align:middle">
-        <img src='images/1.jpg' width="160" style="border-radius: 8px;">
-      </td>
-      <td style="padding:8px;width:75%;vertical-align:middle">
-        <span class="papertitle">Efficient Model Compression for Edge AI</span>
-        <br>
-        <em>Research In Progress</em>
-        <p></p>
         <p>
-        Exploring novel approaches to compress and accelerate large-scale AI models for deployment on resource-constrained edge devices, with focus on maintaining model accuracy while reducing computational and memory requirements.
+            We introduce <strong>EVAR</strong>, an efficient structured-pruning framework tailored to next-scale VAR models and edge deployment. EVAR instantiates a principled pruning paradigm: it couples Optimal Brain Surgeon–guided, Hessian-aware sensitivity estimation with closed-form weight updates, and augments them with scale-aligned calibration and compensation. By grounding pruning decisions in second-order optimality and executing updates analytically, EVAR mitigates compression-induced degradation while preserving next-scale conditioning—turning sparsification from a heuristic into a disciplined procedure. To further address scale-wise gradient and loss imbalance during fine-tuning, we propose Progressive Scale-Aware Distillation (PSAD), which leverages VAR's multi-scale generative hierarchy to reweight scales and enforce cross-scale consistency in the pruned model.
         </p>
-      </td>
-    </tr>
+        <p>
+            On ImageNet single-image generation benchmarks, EVAR reduces parameter count, memory footprint, and end-to-end latency while retaining competitive generative quality. On an iOS deployment, EVAR further cuts single-image latency from 494 ms to 277 ms <strong>(1.8× speedup)</strong>, with FID changing only marginally.
+        </p>
+    </div>
 
-          </tbody></table>
+    <!-- Method Overview -->
+    <div class="section">
+        <h2>Method Overview</h2>
 
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Technical Expertise</h2>
-                <p>
-                  <strong>Research Areas:</strong> Model Compression, Edge AI, Visual Generation, Knowledge Distillation, Efficient Deep Learning
-                </p>
-                <p>
-                  <strong>Deployment Platforms:</strong> iOS/CoreML, Mobile Devices, Edge Hardware
-                </p>
-                <p>
-                  <strong>Frameworks & Tools:</strong> PyTorch, TensorFlow, Core ML, ONNX
-                </p>
-              </td>
-            </tr>
-          </tbody></table>
+        <div class="method-figure">
+            <img src="images/method.png" alt="Method Pipeline" style="max-width: 95%;">
+            <p style="margin-top: 15px; color: #666; font-size: 0.95em; line-height: 1.8; text-align: left;">
+                <strong>Figure 1: EVAR Framework.</strong> We introduce the first principled pruning framework tailored for next-scale visual autoregressive (VAR) models, enabling efficient edge deployment. Our approach makes three key contributions: <strong>(1) OBS-Guided Adaptive Pruning:</strong> We present an Optimal Brain Surgeon (OBS)-guided adaptive pruning and compensation framework with Hessian-aware sensitivity estimation, applying closed-form weight updates to systematically prune attention heads and FFN channels while minimizing reconstruction error. <strong>(2) Progressive Scale-Aware Distillation (PSAD):</strong> We propose a novel distillation scheme that addresses scale-wise gradient and loss imbalance inherent to next-scale VAR architectures. PSAD leverages VAR's multi-scale generative hierarchy through progressive scale unlocking and scale-weighted distillation loss, enforcing cross-scale consistency during fine-tuning. <strong>(3) End-to-End Edge Deployment:</strong> We build a complete on-device deployment and evaluation pipeline for single-image VAR generation on iOS devices using CoreML inference engine, demonstrating practical applicability and real-world performance gains. The pipeline employs pre-encode calibration with real images encoded through VAR's VQ-VAE to create calibration sets that faithfully reflect inference-time token distributions, grounding pruning decisions in second-order optimality and turning sparsification from a heuristic into a disciplined procedure.
+            </p>
+        </div>
+    </div>
 
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:0px">
-                <br>
-                <p style="text-align:right;font-size:small;">
-                  Website template from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>
-                </p>
-              </td>
-            </tr>
-          </tbody></table>
-        </td>
-      </tr>
-    </table>
-  </body>
+    <!-- Results Carousel Container -->
+    <div class="carousel-container">
+        <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+
+        <div class="carousel-wrapper">
+            <!-- Slide 1: Main Results & Performance Comparison -->
+            <div class="carousel-slide active">
+                <div class="section">
+                    <h2>Main Results</h2>
+                    <p style="color: #666; font-size: 0.9em; margin-bottom: 15px; line-height: 1.6;">
+                        EVAR achieves significant efficiency gains while maintaining high-quality image generation. Our principled pruning framework enables practical deployment on resource-constrained edge devices.
+                    </p>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-number">1.8×</div>
+                            <div class="result-label">Speedup on iPad Pro M4</div>
+                            <div style="margin-top: 10px; font-size: 0.85em; color: #888;">494ms → 277ms</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-number">26%</div>
+                            <div class="result-label">Parameter Reduction</div>
+                            <div style="margin-top: 10px; font-size: 0.85em; color: #888;">310M → 230M params</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-number">&lt;10%</div>
+                            <div class="result-label">FID Degradation</div>
+                            <div style="margin-top: 10px; font-size: 0.85em; color: #888;">FID: 3.55 → 3.91</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-number">First</div>
+                            <div class="result-label">Principled Pruning for VAR</div>
+                            <div style="margin-top: 10px; font-size: 0.85em; color: #888;">OBS-guided framework</div>
+                        </div>
+                    </div>
+
+                    <h2 style="margin-top: 35px;">Performance Comparison</h2>
+                    <p style="color: #666; font-size: 0.9em; margin-bottom: 12px; line-height: 1.6;">
+                        EVAR outperforms existing pruning methods on ImageNet-1K 256×256 conditional generation, achieving superior quality-efficiency trade-off across all metrics.
+                    </p>
+                    <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Parameters</th>
+                    <th>Pruning Rate</th>
+                    <th>FID ↓</th>
+                    <th>IS ↑</th>
+                    <th>Precision ↑</th>
+                    <th>Recall ↑</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: #e3f2fd;">
+                    <td><strong>VAR-d16 (Original)</strong></td>
+                    <td>310M</td>
+                    <td>—</td>
+                    <td>3.55</td>
+                    <td>274.4</td>
+                    <td>0.84</td>
+                    <td>0.51</td>
+                </tr>
+                <tr>
+                    <td>LLM-pruner</td>
+                    <td>230M</td>
+                    <td>40%</td>
+                    <td>4.21</td>
+                    <td>53.92</td>
+                    <td>0.81</td>
+                    <td>0.50</td>
+                </tr>
+                <tr>
+                    <td>OBA</td>
+                    <td>230M</td>
+                    <td>40%</td>
+                    <td>4.19</td>
+                    <td>53.43</td>
+                    <td>0.83</td>
+                    <td>0.47</td>
+                </tr>
+                <tr style="background-color: #fff3cd;">
+                    <td><strong>EVAR (20% pruning)</strong></td>
+                    <td>270M</td>
+                    <td>20%</td>
+                    <td><strong>3.67</strong></td>
+                    <td>57.78</td>
+                    <td>0.81</td>
+                    <td>0.51</td>
+                </tr>
+                <tr style="background-color: #fff3cd;">
+                    <td><strong>EVAR (40% pruning)</strong></td>
+                    <td>230M</td>
+                    <td>40%</td>
+                    <td><strong>3.91</strong></td>
+                    <td><strong>57.23</strong></td>
+                    <td>0.81</td>
+                    <td><strong>0.51</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="color: #666; font-size: 0.85em; margin-top: 8px;">
+            Results on ImageNet-1K 256×256 conditional generation. EVAR achieves the best quality-efficiency trade-off.
+        </p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Ablation Studies -->
+            <div class="carousel-slide">
+                <div class="section">
+                    <h2>Ablation Studies</h2>
+                    <p style="color: #666; font-size: 0.9em; margin-bottom: 15px; line-height: 1.6;">
+                        Comprehensive ablation studies demonstrate the effectiveness of our OBS-guided pruning strategy and Progressive Scale-Aware Distillation (PSAD) framework.
+                    </p>
+
+                    <h3 style="font-size: 1.2em; margin: 20px 0 10px 0; color: #1a1a1a;">Impact of Different Pruning Methods</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Pruning Strategy</th>
+                    <th>FID ↓</th>
+                    <th>IS ↑</th>
+                    <th>Precision ↑</th>
+                    <th>Recall ↑</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Magnitude</td>
+                    <td>L1-norm based</td>
+                    <td>4.35</td>
+                    <td>52.18</td>
+                    <td>0.80</td>
+                    <td>0.49</td>
+                </tr>
+                <tr>
+                    <td>Taylor</td>
+                    <td>First-order sensitivity</td>
+                    <td>4.28</td>
+                    <td>53.21</td>
+                    <td>0.81</td>
+                    <td>0.48</td>
+                </tr>
+                <tr>
+                    <td>LLM-pruner</td>
+                    <td>Group-wise importance</td>
+                    <td>4.21</td>
+                    <td>53.92</td>
+                    <td>0.81</td>
+                    <td>0.50</td>
+                </tr>
+                <tr>
+                    <td>OBA</td>
+                    <td>Hessian approximation</td>
+                    <td>4.19</td>
+                    <td>53.43</td>
+                    <td>0.83</td>
+                    <td>0.47</td>
+                </tr>
+                <tr style="background-color: #fff3cd;">
+                    <td><strong>EVAR (Ours)</strong></td>
+                    <td>OBS-guided + PSAD</td>
+                    <td><strong>3.91</strong></td>
+                    <td><strong>57.23</strong></td>
+                    <td>0.81</td>
+                    <td><strong>0.51</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="color: #666; font-size: 0.85em; margin-top: 8px;">
+            Comparison at 40% pruning rate (230M parameters). EVAR significantly outperforms baseline methods.
+        </p>
+
+        <h3 style="font-size: 1.2em; margin: 20px 0 10px 0; color: #1a1a1a;">Progressive Scale-Aware Distillation (PSAD) Analysis</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Configuration</th>
+                    <th>FID ↓</th>
+                    <th>IS ↑</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>w/o Distillation</td>
+                    <td>4.15</td>
+                    <td>55.32</td>
+                    <td>Direct fine-tuning only</td>
+                </tr>
+                <tr>
+                    <td>w/o Progressive Unlocking</td>
+                    <td>4.02</td>
+                    <td>56.18</td>
+                    <td>Uniform distillation across scales</td>
+                </tr>
+                <tr>
+                    <td>w/o Scale Weighting</td>
+                    <td>3.98</td>
+                    <td>56.54</td>
+                    <td>Progressive but unweighted</td>
+                </tr>
+                <tr style="background-color: #fff3cd;">
+                    <td><strong>Full PSAD (Ours)</strong></td>
+                    <td><strong>3.91</strong></td>
+                    <td><strong>57.23</strong></td>
+                    <td>Complete framework</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="color: #666; font-size: 0.85em; margin-top: 8px;">
+            Each component of PSAD contributes to the final performance improvement.
+        </p>
+                </div>
+            </div>
+
+            <!-- Slide 3: Edge Deployment -->
+            <div class="carousel-slide">
+                <div class="section">
+                    <h2>Edge Deployment Results</h2>
+                    <div style="margin-top: 20px;">
+            <h3 style="margin-top: 0; font-size: 1.2em; margin-bottom: 12px;">iOS Deployment Performance</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 10px;">
+                <div class="result-card" style="padding: 15px;">
+                    <div class="result-label" style="font-size: 0.8em;">iPad Pro (M4)</div>
+                    <div class="result-number" style="font-size: 1.8em; margin: 5px 0;">494ms</div>
+                    <div style="margin-top: 5px; font-size: 0.75em; color: #666;">VAR-d16 310M</div>
+                </div>
+                <div class="result-card" style="background-color: #c8e6c9; padding: 15px;">
+                    <div class="result-label" style="font-size: 0.8em;">iPad Pro (M4)</div>
+                    <div class="result-number" style="font-size: 1.8em; color: #4caf50; margin: 5px 0;">277ms</div>
+                    <div style="margin-top: 5px; font-size: 0.75em; color: #666;">EVAR 40% 230M</div>
+                </div>
+                <div class="result-card" style="background-color: #c8e6c9; padding: 15px;">
+                    <div class="result-label" style="font-size: 0.8em;">iPad Pro (M2)</div>
+                    <div class="result-number" style="font-size: 1.8em; color: #4caf50; margin: 5px 0;">449ms</div>
+                    <div style="margin-top: 5px; font-size: 0.75em; color: #666;">EVAR 40% 230M</div>
+                </div>
+                <div class="result-card" style="background-color: #c8e6c9; padding: 15px;">
+                    <div class="result-label" style="font-size: 0.8em;">iPhone 16 Pro</div>
+                    <div class="result-number" style="font-size: 1.8em; color: #4caf50; margin: 5px 0;">580ms</div>
+                    <div style="margin-top: 5px; font-size: 0.75em; color: #666;">EVAR 40% 230M</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 12px; text-align: left; line-height: 1.5; color: #555; font-size: 0.85em;">
+                We deploy EVAR models on multiple iOS devices using the CoreML framework for CPU+GPU mixed inference. On the flagship iPad Pro (M4), EVAR achieves 1.8× speedup (494ms → 277ms). Notably, due to memory and computational constraints on mobile devices, the original 310M-parameter VAR-d16 model cannot run, and only the 40% pruned EVAR model (230M parameters) is supported. This finding underscores the necessity of model pruning for mobile deployment—through systematic pruning strategies, the EVAR framework enables high-quality visual generative models to achieve practical deployment on resource-constrained mobile devices for the first time. iPhone 16 Pro demonstrates excellent performance (580ms), while iPhone 12 Pro, as an older device, completes inference within an acceptable time frame (1778ms).
+            </p>
+        </div>
+
+        <!-- Device Comparison -->
+        <div style="margin: 15px 0 0 0;">
+            <h3 style="font-size: 1.2em; margin-bottom: 10px; color: #1a1a1a;">Cross-Device Inference Comparison</h3>
+            <div style="display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;">
+                <div style="text-align: center; flex: 0 0 240px;">
+                    <img src="images/iphone-12-pro.jpg" alt="iPhone 12 Pro Results" style="width: 240px; height: 240px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <p style="margin-top: 6px; color: #666; font-size: 0.8em;">
+                        <strong>iPhone 12 Pro:</strong> EVAR inference results on older device
+                    </p>
+                </div>
+                <div style="text-align: center; flex: 0 0 240px;">
+                    <img src="images/iphone-16-pm.jpg" alt="iPhone 16 Pro Max Results" style="width: 240px; height: 240px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <p style="margin-top: 6px; color: #666; font-size: 0.8em;">
+                        <strong>iPhone 16 Pro Max:</strong> EVAR inference results on latest device
+                    </p>
+                </div>
+            </div>
+            <p style="margin-top: 10px; color: #666; text-align: center; font-size: 0.8em;">
+                EVAR demonstrates robust performance across different iOS devices, achieving consistent quality and real-time generation
+            </p>
+        </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
+
+        <div class="carousel-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </div>
+    <!-- End Results Carousel -->
+
+    <!-- Video Demo -->
+    <div class="section">
+        <h2>Video Demo</h2>
+        <div style="text-align: center; margin: 30px 0;">
+            <video width="50%" style="max-width: 400px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" controls>
+                <source src="images/ipad-m4-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p style="margin-top: 20px; color: #666; font-size: 0.95em;">
+                <strong>Real-time Demo:</strong> EVAR running on iPad Pro (M4) showing 1.8× speedup and high-quality image generation
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Zefang Wang</p>
+        <p style="margin-top: 10px;">
+            For questions or collaborations, please feel free to contact me.
+        </p>
+    </div>
+    </div><!-- End white section -->
+
+    <script>
+        let currentSlideIndex = 0;
+        let autoSlideTimer = null;
+        let isHovering = false;
+
+        // Show specific slide
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+
+            if (index >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (index < 0) {
+                currentSlideIndex = slides.length - 1;
+            } else {
+                currentSlideIndex = index;
+            }
+
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            // Remove active class from all dots
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+
+            // Show current slide
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        // Change slide by direction (-1 for previous, 1 for next)
+        function changeSlide(direction) {
+            showSlide(currentSlideIndex + direction);
+            // Restart auto-slide only if not hovering
+            if (!isHovering) {
+                resetAutoSlide();
+            }
+        }
+
+        // Go to specific slide
+        function currentSlide(index) {
+            showSlide(index);
+            // Restart auto-slide only if not hovering
+            if (!isHovering) {
+                resetAutoSlide();
+            }
+        }
+
+        // Auto-slide functionality
+        function startAutoSlide() {
+            // Clear any existing timer first
+            if (autoSlideTimer) {
+                clearInterval(autoSlideTimer);
+            }
+            autoSlideTimer = setInterval(() => {
+                if (!isHovering) {
+                    currentSlideIndex = (currentSlideIndex + 1) % document.querySelectorAll('.carousel-slide').length;
+                    showSlide(currentSlideIndex);
+                }
+            }, 5000); // 5 seconds
+        }
+
+        // Reset auto-slide timer
+        function resetAutoSlide() {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = null;
+            if (!isHovering) {
+                startAutoSlide();
+            }
+        }
+
+        // Stop auto-slide
+        function stopAutoSlide() {
+            if (autoSlideTimer) {
+                clearInterval(autoSlideTimer);
+                autoSlideTimer = null;
+            }
+        }
+
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(0);
+            startAutoSlide();
+
+            // Pause auto-slide on hover
+            const carousel = document.querySelector('.carousel-container');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                    stopAutoSlide();
+                    console.log('Auto-slide paused (hover)');
+                });
+                carousel.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                    startAutoSlide();
+                    console.log('Auto-slide resumed (leave)');
+                });
+            }
+        });
+    </script>
+</body>
 </html>
