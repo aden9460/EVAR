@@ -506,12 +506,7 @@
             <a href="https://github.com/aden9460/EVAR-code" class="github" target="_blank">💻 Code</a>
         </div>
     </div>
-
-    <!-- Teaser -->
-    <div class="teaser">
-        <img src="images/teaser-v1.jpg" alt="EVAR teaser">
-    </div>
-    <!-- Abstract -->
+<!-- Abstract -->
     <div class="section">
         <h2>Abstract</h2>
         <p>
@@ -523,7 +518,7 @@
         <h2>Method Overview</h2>
 
         <div class="method-figure">
-            <img src="images/method.png" alt="Method Pipeline" style="max-width: 95%;">
+            <img src="images/teaser-v1.jpg" alt="EVAR Framework" style="max-width: 95%;">
             <p style="margin-top: 15px; color: #666; font-size: 0.95em; line-height: 1.8; text-align: left;">
                 <strong>Figure 1: EVAR Framework.</strong> We introduce the first principled pruning framework tailored for next-scale visual autoregressive (VAR) models, enabling efficient edge deployment. Our approach makes three key contributions: <strong>(1) OBS-Guided Adaptive Pruning:</strong> We present an Optimal Brain Surgeon (OBS)-guided adaptive pruning and compensation framework with Hessian-aware sensitivity estimation, applying closed-form weight updates to systematically prune attention heads and FFN channels while minimizing reconstruction error. <strong>(2) Progressive Scale-Aware Distillation (PSAD):</strong> We propose a novel distillation scheme that addresses scale-wise gradient and loss imbalance inherent to next-scale VAR architectures. PSAD leverages VAR's multi-scale generative hierarchy through progressive scale unlocking and scale-weighted distillation loss, enforcing cross-scale consistency during fine-tuning. <strong>(3) End-to-End Edge Deployment:</strong> We build a complete on-device deployment and evaluation pipeline for single-image VAR generation on iOS devices using CoreML inference engine, demonstrating practical applicability and real-world performance gains. The pipeline employs pre-encode calibration with real images encoded through VAR's VQ-VAE to create calibration sets that faithfully reflect inference-time token distributions, grounding pruning decisions in second-order optimality and turning sparsification from a heuristic into a disciplined procedure.
             </p>
