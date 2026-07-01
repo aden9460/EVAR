@@ -470,7 +470,7 @@
         <h1 class="title">EVAR: Edge Visual Autoregressive Models<br>via Principled Pruning</h1>
         <p class="authors" style="font-size: 1.1em; margin: 20px 0; line-height: 1.8;">
             <a href="https://aden9460.github.io/Zefang-Wang/" style="text-decoration: none; color: #2196F3;">Zefang Wang</a><sup>1,2,*</sup>,
-            Ying Li<sup>2</sup>,
+            <a href="https://scholar.google.com/citations?user=jIkHgFAAAAAJ&hl=zh-CN" style="text-decoration: none; color: #2196F3;">Ying Li</a><sup>2</sup>,
             <a href="https://scholar.google.com/citations?user=XUj8koUAAAAJ&hl=en" style="text-decoration: none; color: #2196F3;">Yanyu Li</a><sup>3</sup>,
             <a href="https://github.com/sunshine-0903" style="text-decoration: none; color: #2196F3;">Mingluo Su</a><sup>2</sup>,
             <a href="https://simmy-x.github.io/" style="text-decoration: none; color: #2196F3;">Simin Xu</a><sup>2</sup>,
@@ -520,7 +520,7 @@
         <div class="method-figure">
             <img src="images/teaser-v1.jpg" alt="EVAR Framework" style="max-width: 95%;">
             <p style="margin-top: 15px; color: #666; font-size: 0.95em; line-height: 1.8; text-align: left;">
-                <strong>Figure 1: EVAR Framework.</strong> We introduce the first principled pruning framework tailored for next-scale visual autoregressive (VAR) models, enabling efficient edge deployment. Our approach makes three key contributions: <strong>(1) OBS-Guided Adaptive Pruning:</strong> We present an Optimal Brain Surgeon (OBS)-guided adaptive pruning and compensation framework with Hessian-aware sensitivity estimation, applying closed-form weight updates to systematically prune attention heads and FFN channels while minimizing reconstruction error. <strong>(2) Progressive Scale-Aware Distillation (PSAD):</strong> We propose a novel distillation scheme that addresses scale-wise gradient and loss imbalance inherent to next-scale VAR architectures. PSAD leverages VAR's multi-scale generative hierarchy through progressive scale unlocking and scale-weighted distillation loss, enforcing cross-scale consistency during fine-tuning. <strong>(3) End-to-End Edge Deployment:</strong> We build a complete on-device deployment and evaluation pipeline for single-image VAR generation on iOS devices using CoreML inference engine, demonstrating practical applicability and real-world performance gains. The pipeline employs pre-encode calibration with real images encoded through VAR's VQ-VAE to create calibration sets that faithfully reflect inference-time token distributions, grounding pruning decisions in second-order optimality and turning sparsification from a heuristic into a disciplined procedure.
+                <strong>Figure 1: The overall pipeline of EVAR.</strong> <strong>(a)</strong> Pyramid-Aware Hessian Accumulation builds a scale-aware Hessian from multi-scale calibration tokens. <strong>(b)</strong> OBS-guided structured pruning removes coupled attention heads and FFN channels with closed-form compensation. <strong>(c)</strong> PSAD balances multi-scale distillation with scale-aware weighting and a coarse-to-fine curriculum.
             </p>
         </div>
     </div>
