@@ -469,18 +469,22 @@
     <div class="header">
         <h1 class="title">EVAR: Edge Visual Autoregressive Models<br>via Principled Pruning</h1>
         <p class="authors" style="font-size: 1.1em; margin: 20px 0; line-height: 1.8;">
-            <a href="https://aden9460.github.io/Zefang-Wang/" style="text-decoration: none; color: #2196F3;">Zefang Wang</a><sup>1,2</sup>,
+            <a href="https://aden9460.github.io/Zefang-Wang/" style="text-decoration: none; color: #2196F3;">Zefang Wang</a><sup>1,2,*</sup>,
+            Ying Li<sup>2</sup>,
             <a href="https://scholar.google.com/citations?user=XUj8koUAAAAJ&hl=en" style="text-decoration: none; color: #2196F3;">Yanyu Li</a><sup>3</sup>,
-            <a href="https://github.com/sunshine-0903" style="text-decoration: none; color: #2196F3;">Mingluo Su</a><sup>1</sup>,
-            <a href="https://simmy-x.github.io/" style="text-decoration: none; color: #2196F3;">Simin Xu</a><sup>1</sup>,
-            <a href="https://gylu22.github.io/" style="text-decoration: none; color: #2196F3;">Guanzhong Tian</a><sup>2,*</sup>,
-            <a href="https://huanwang.tech/" style="text-decoration: none; color: #2196F3;">Huan Wang</a><sup>1,*</sup>
+            <a href="https://github.com/sunshine-0903" style="text-decoration: none; color: #2196F3;">Mingluo Su</a><sup>2</sup>,
+            <a href="https://simmy-x.github.io/" style="text-decoration: none; color: #2196F3;">Simin Xu</a><sup>2</sup>,
+            <a href="https://gylu22.github.io/" style="text-decoration: none; color: #2196F3;">Guanzhong Tian</a><sup>1,&dagger;</sup>,
+            <a href="https://huanwang.tech/" style="text-decoration: none; color: #2196F3;">Huan Wang</a><sup>2,&dagger;</sup>
         </p>
         <p style="font-size: 0.95em; color: #666; margin: 10px 0;">
-            <sup>1</sup>Westlake University &nbsp;&nbsp;&nbsp; <sup>2</sup>Zhejiang University &nbsp;&nbsp;&nbsp; <sup>3</sup>Snap Inc.
+            <sup>1</sup>Zhejiang University, China &nbsp;&nbsp;&nbsp; <sup>2</sup>Westlake University, China &nbsp;&nbsp;&nbsp; <sup>3</sup>Snap Inc., USA
         </p>
         <p style="font-size: 0.9em; color: #666; margin: 5px 0;">
-            <sup>*</sup>Corresponding authors
+            <sup>&dagger;</sup>Corresponding to: Huan Wang &lt;<a href="mailto:wanghuan@westlake.edu.cn" style="color: #666;">wanghuan@westlake.edu.cn</a>&gt;, Guanzhong Tian &lt;<a href="mailto:gztian@zju.edu.cn" style="color: #666;">gztian@zju.edu.cn</a>&gt;
+        </p>
+        <p style="font-size: 0.9em; color: #666; margin: 5px 0;">
+            <sup>*</sup>Work done while Zefang was a visiting intern at ENCODE Lab, Westlake University.
         </p>
 
         <!-- Institution Logos -->
@@ -503,20 +507,17 @@
         </div>
     </div>
 
+    <!-- Teaser -->
+    <div class="teaser">
+        <img src="images/teaser-v1.jpg" alt="EVAR teaser">
+    </div>
     <!-- Abstract -->
     <div class="section">
         <h2>Abstract</h2>
         <p>
-            Recent advances in generative modeling have catalyzed demand for on-device single-image synthesis. However, the stringent compute and memory budgets of resource-constrained edge hardware hinder the deployment of large-scale models. Next-scale visual autoregressive (VAR) models—which predict finer-scale content conditioned on coarser resolutions—offer strong fidelity, generalization, and improved inference efficiency, yet remain costly to run on such devices.
-        </p>
-        <p>
-            We introduce <strong>EVAR</strong>, an efficient structured-pruning framework tailored to next-scale VAR models and edge deployment. EVAR instantiates a principled pruning paradigm: it couples Optimal Brain Surgeon–guided, Hessian-aware sensitivity estimation with closed-form weight updates, and augments them with scale-aligned calibration and compensation. By grounding pruning decisions in second-order optimality and executing updates analytically, EVAR mitigates compression-induced degradation while preserving next-scale conditioning—turning sparsification from a heuristic into a disciplined procedure. To further address scale-wise gradient and loss imbalance during fine-tuning, we propose Progressive Scale-Aware Distillation (PSAD), which leverages VAR's multi-scale generative hierarchy to reweight scales and enforce cross-scale consistency in the pruned model.
-        </p>
-        <p>
-            On ImageNet single-image generation benchmarks, EVAR reduces parameter count, memory footprint, and end-to-end latency while retaining competitive generative quality. On an iOS deployment, EVAR further cuts single-image latency from 494 ms to 277 ms <strong>(1.8× speedup)</strong>, with FID changing only marginally.
+            Next-scale visual autoregressive (VAR) models offer strong generative fidelity but remain computationally prohibitive for resource-constrained edge devices. We introduce <strong>EVAR</strong>, a structured-pruning framework tailored to next-scale VAR models. We find that standard pruning paradigms are poorly matched to multi-scale VAR architectures: rapid token growth at later scales dominates Hessian accumulation, marginalizing critical coarse scales and amplifying autoregressive error cascading. To address this issue, EVAR introduces Pyramid-Aware Optimal Brain Surgeon. Through pyramid-aware Hessian accumulation, Pyramid-Aware OBS rebalances scale-wise activation statistics and biases the solver toward preserving coarse-scale representations while maintaining an invertible Hessian estimate for closed-form weight compensation. Additionally, we propose Progressive Scale-Aware Distillation (PSAD) to counteract scale-wise gradient imbalance during fine-tuning. On ImageNet benchmarks, EVAR substantially reduces parameters and model footprint while retaining competitive quality. On an iOS deployment, EVAR further cuts single-image latency from 494 ms to 277 ms <strong>(1.8&times; speedup)</strong>, with FID changing only marginally.
         </p>
     </div>
-
     <!-- Method Overview -->
     <div class="section">
         <h2>Method Overview</h2>
